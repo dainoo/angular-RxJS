@@ -1,5 +1,5 @@
 import { Component, OnInit, VERSION } from "@angular/core";
-import { of } from "rxjs";
+import { from, of } from "rxjs";
 
 @Component({
   selector: "my-app",
@@ -7,12 +7,29 @@ import { of } from "rxjs";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
+  name = "Angular " + VERSION.major;
+
   ngOnInit(): void {
     of(1, 2, 3, 4, 5).subscribe(
       next => console.log(next),
       error => console.log,
       () => console.log("complete man")
     );
+
+    from([20, 15, 10, 5]).subscribe(
+      item => {
+        console.log(`resulting itme ... ${item}`);
+      },
+      err => {
+        console.error(err);
+      },
+      () => console.info("complete")
+    );
+
+    from(["A", "B", "C", "D"]).subscribe(
+      next => console.log(next),
+      err => console.error,
+      () => console.info
+    );
   }
-  name = "Angular " + VERSION.major;
 }
